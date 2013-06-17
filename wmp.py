@@ -48,7 +48,7 @@ def get_prefix_list():
             exit()
 
     for x in os.listdir(DATA_PATH) : 
-        print( get_absolute_path(x) )
+        #        print( get_absolute_path(x) )
         prefix.append(x)
 
     return prefix
