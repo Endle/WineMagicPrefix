@@ -106,6 +106,23 @@ def use_prefix():
     src = get_absolute_path(argv_list[1])
     shutil.move(src, PREFIX_PATH)
 
+def use_prefix_new():
+    global argv_list
+    global prefix_list 
+    
+    if argv_list[1] not in prefix_list:
+        raise ValueError("Can't find prefix:  " + argv_list[1])
+
+    if os.path.exists(PREFIX_PATH):
+        flag = yes_or_no("Over-write current wine-prefix")
+        if flag:
+            shutil.rmtree(PREFIX_PATH)
+        else:
+            print("Aborted.")
+            exit()
+
+    src = get_absolute_path(argv_list[1])
+    shutil.copytree(src, PREFIX_PATH, True)
 
 
 if __name__ == '__main__':
