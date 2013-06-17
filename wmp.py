@@ -51,7 +51,6 @@ def get_prefix_list():
         print( get_absolute_path(x) )
         prefix.append(x)
 
-#    print(prefix)
     return prefix
 
 
