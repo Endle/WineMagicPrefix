@@ -25,3 +25,19 @@ if __name__ == '__main__':
     argv_list = sys.argv[1:]
 
     check_argv()
+
+    prefix_list = get_prefix_list()
+
+    if '-b' in argv_list:
+        backup()
+    elif '-bn' in argv_list:
+        backup_new()
+    elif '-u' in argv_list:
+        use_prefix()
+    elif '-un' in argv_list:
+        use_prefix_new()
+    elif '-l' in argv_list:
+        show_prefix_list()
+    else:
+        print(argv_list)
+        raise ValueError('Invalid Option!')
