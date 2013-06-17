@@ -9,6 +9,7 @@ import shutil
 
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
+PREFIX_PATH = os.path.expanduser('~/.wine')
 
 def check_argv():
     """Check if the argv has only one option
@@ -28,7 +29,7 @@ def get_absolute_path(x):
 
     Return the absolute path
     """
-    return (DATA_PATH+'\\' + x)
+    return (DATA_PATH+'/' + x)
 
 def get_prefix_list():
     """Return a list, all the prefixes are included.
@@ -62,6 +63,19 @@ def yes_or_no(hint = ""):
     inp = input(hint + '[y/n]?')
     inp = inp.strip().lowercase()
     return inp[0] == 'y'
+
+def backup():
+    if not os.path.isdir(PREFIX_PATH):
+        raise OSError('Nothing to backup!')
+    
+    global argv_list
+    dst = get_absolute_path(argv_list[1])
+    if os.path.exists(dst):
+        print(dst + ' already exists!')
+        raise OSError
+    else:
+        shutil.move(PREFIX_PATH, dst)
+
 
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
