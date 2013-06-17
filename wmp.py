@@ -58,6 +58,11 @@ def show_prefix_list():
     for c in prefix_list:
         print(c)
 
+def yes_or_no(hint = ""):
+    inp = input(hint + '[y/n]?')
+    inp = inp.strip().lowercase()
+    return inp[0] == 'y'
+
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
 
