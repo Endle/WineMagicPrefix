@@ -124,6 +124,26 @@ def use_prefix_new():
     src = get_absolute_path(argv_list[1])
     shutil.copytree(src, PREFIX_PATH, True)
 
+def delete_prefix():
+    global argv_list
+    paths = []
+    for prfx in argv_list[1:]:
+        path = get_absolute_path(prfx)
+        if os.path.exists(path):
+            paths.append(path)
+        else:
+            print(prfx + ' not exists. Ignore it')
+            argv_list.remove(prfx)
+
+    if (len(paths) == 0):
+        print('Nothing to do.')
+        return
+
+    hint = 'Are you going to delete: ' + str(prfx)
+    flag = yes_or_no(hint)
+    if flag:
+        for path in paths:
+            shutil.rmtree(path)
 
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
