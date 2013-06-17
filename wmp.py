@@ -21,6 +21,13 @@ def check_argv():
         raise ValueError('Wrong Command')
 #    print(argv_list)
 
+def get_prefix_list():
+    prefix = ['~/.wine']
+
+    print(prefix)
+    return prefix
+
+
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
 
