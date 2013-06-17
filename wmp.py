@@ -23,6 +23,13 @@ def check_argv():
         print (argv_list)
         raise ValueError('Wrong Command')
 
+def get_absolute_path(x):
+    """x is the relative path
+
+    Return the absolute path
+    """
+    return (DATA_PATH+'\\' + x)
+
 def get_prefix_list():
     """Return a list, all the prefixes are included.
     """
@@ -40,7 +47,11 @@ def get_prefix_list():
             print('Can\'t create ' + DATA_PATH)
             exit()
 
-    print(prefix)
+    for x in os.listdir(DATA_PATH) : 
+        print( get_absolute_path(x) )
+        prefix.append(x)
+
+#    print(prefix)
     return prefix
 
 
