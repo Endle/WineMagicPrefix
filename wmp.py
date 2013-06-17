@@ -76,6 +76,18 @@ def backup():
     else:
         shutil.move(PREFIX_PATH, dst)
 
+def backup_new():
+    if not os.path.isdir(PREFIX_PATH):
+        raise OSError('Nothing to backup!')
+    
+    global argv_list
+    dst = get_absolute_path(argv_list[1])
+    if os.path.exists(dst):
+        print(dst + ' already exists!')
+        raise OSError
+    else:
+        shutil.copytree(PREFIX_PATH, dst, True)
+
 
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
