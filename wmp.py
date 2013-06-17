@@ -64,17 +64,26 @@ def yes_or_no(hint = ""):
     c = inp.strip()[0]
     return c == 'y' or c == 'Y'
 
+def try_to_overwrite(path):
+    """Over-write path if the user confirms that
+    """
+    if os.path.exists(path):
+        flag = yes_or_no("Over-write " + path)
+        if flag:
+            shutil.rmtree(PREFIX_PATH)
+        else:
+            print("Aborted.")
+            exit()
+
+
 def backup():
     if not os.path.isdir(PREFIX_PATH):
         raise OSError('Nothing to backup!')
     
     global argv_list
     dst = get_absolute_path(argv_list[1])
-    if os.path.exists(dst):
-        print(dst + ' already exists!')
-        raise OSError
-    else:
-        shutil.move(PREFIX_PATH, dst)
+    try_to_overwrite(dst)
+    shutil.move(PREFIX_PATH, dst)
 
 def backup_new():
     if not os.path.isdir(PREFIX_PATH):
@@ -82,11 +91,8 @@ def backup_new():
     
     global argv_list
     dst = get_absolute_path(argv_list[1])
-    if os.path.exists(dst):
-        print(dst + ' already exists!')
-        raise OSError
-    else:
-        shutil.copytree(PREFIX_PATH, dst, True)
+    try_to_overwrite(dst)
+    shutil.copytree(PREFIX_PATH, dst, True)
 
 def use_prefix():
     global argv_list
@@ -95,13 +101,7 @@ def use_prefix():
     if argv_list[1] not in prefix_list:
         raise ValueError("Can't find prefix:  " + argv_list[1])
 
-    if os.path.exists(PREFIX_PATH):
-        flag = yes_or_no("Over-write current wine-prefix")
-        if flag:
-            shutil.rmtree(PREFIX_PATH)
-        else:
-            print("Aborted.")
-            exit()
+    try_to_overwrite(PREFIX_PATH)
 
     src = get_absolute_path(argv_list[1])
     shutil.move(src, PREFIX_PATH)
@@ -113,13 +113,7 @@ def use_prefix_new():
     if argv_list[1] not in prefix_list:
         raise ValueError("Can't find prefix:  " + argv_list[1])
 
-    if os.path.exists(PREFIX_PATH):
-        flag = yes_or_no("Over-write current wine-prefix")
-        if flag:
-            shutil.rmtree(PREFIX_PATH)
-        else:
-            print("Aborted.")
-            exit()
+    try_to_overwrite(PREFIX_PATH)
 
     src = get_absolute_path(argv_list[1])
     shutil.copytree(src, PREFIX_PATH, True)
