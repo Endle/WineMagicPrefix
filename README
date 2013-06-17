@@ -1,0 +1,12 @@
+A simple program to manage your wine-prefixes.
+
+-b  : backup your current wineprefix(move it away)
+-bn : backup your current wineprefix(copy it)
+-u  : use an archieved wineprefix and overwrite currnet wineprefix(move it here)
+-un : use an archieved wineprefix and overwrite currnet wineprefix(copy it here)
+-d  : delete archieved wineprefixes
+-l  : show all the wineprefixes
+
+Just have Fun!
+Welcome to my blog:     http://endle.gitcafe.com
+
