@@ -106,6 +106,8 @@ if __name__ == '__main__':
         use_prefix_new()
     elif '-l' in argv_list:
         show_prefix_list()
+    elif '-d' in argv_list:
+        delete_prefix()
     else:
         print(argv_list)
         raise ValueError('Invalid Option!')
