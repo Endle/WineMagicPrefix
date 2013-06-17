@@ -61,8 +61,8 @@ def show_prefix_list():
 
 def yes_or_no(hint = ""):
     inp = input(hint + '[y/n]?')
-    inp = inp.strip().lowercase()
-    return inp[0] == 'y'
+    c = inp.strip()[0]
+    return c == 'y' or c == 'Y'
 
 def backup():
     if not os.path.isdir(PREFIX_PATH):
@@ -87,6 +87,25 @@ def backup_new():
         raise OSError
     else:
         shutil.copytree(PREFIX_PATH, dst, True)
+
+def use_prefix():
+    global argv_list
+    global prefix_list 
+    
+    if argv_list[1] not in prefix_list:
+        raise ValueError("Can't find prefix:  " + argv_list[1])
+
+    if os.path.exists(PREFIX_PATH):
+        flag = yes_or_no("Over-write current wine-prefix")
+        if flag:
+            shutil.rmtree(PREFIX_PATH)
+        else:
+            print("Aborted.")
+            exit()
+
+    src = get_absolute_path(argv_list[1])
+    shutil.move(src, PREFIX_PATH)
+
 
 
 if __name__ == '__main__':
