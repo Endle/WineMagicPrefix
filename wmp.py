@@ -53,6 +53,10 @@ def get_prefix_list():
 
     return prefix
 
+def show_prefix_list():
+    global prefix_list
+    for c in prefix_list:
+        print(c)
 
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
