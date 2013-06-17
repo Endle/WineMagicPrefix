@@ -34,7 +34,9 @@ def get_absolute_path(x):
 def get_prefix_list():
     """Return a list, all the prefixes are included.
     """
-    prefix = ['~/.wine']
+    prefix = []
+    if os.path.isdir(PREFIX_PATH):
+        prefix.append('.wine')
 
     #Make sure DATA_PATH is fine
     if os.path.exists(DATA_PATH):
