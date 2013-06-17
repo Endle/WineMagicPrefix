@@ -26,8 +26,10 @@ def check_argv():
 def get_prefix_list():
     prefix = ['~/.wine']
 
+    #Make sure DATA_PATH is fine
     if os.path.exists(DATA_PATH):
-        pass
+        if not os.path.isdir(DATA_PATH):
+            raise OSError(DATA_PATH + ' not a folder')
     else:   #Create one
         try:
             os.makedirs(DATA_PATH)
