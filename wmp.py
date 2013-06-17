@@ -24,6 +24,8 @@ def check_argv():
         raise ValueError('Wrong Command')
 
 def get_prefix_list():
+    """Return a list, all the prefixes are included.
+    """
     prefix = ['~/.wine']
 
     #Make sure DATA_PATH is fine
