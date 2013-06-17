@@ -135,7 +135,7 @@ def delete_prefix():
         print('Nothing to do.')
         return
 
-    hint = 'Are you going to delete: ' + str(prfx)
+    hint = 'Are you going to delete: ' + str(argv_list[1:])
     flag = yes_or_no(hint)
     if flag:
         for path in paths:
