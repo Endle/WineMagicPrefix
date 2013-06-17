@@ -8,7 +8,7 @@ import sys
 import shutil
 
 #Global Config
-DATA_PATH = '`/.wine_magic_prefix'
+DATA_PATH = '~/.wine_magic_prefix'
 
 def check_argv():
     """Check if the argv has only one option
@@ -22,10 +22,15 @@ def check_argv():
     if count != 1:
         print (argv_list)
         raise ValueError('Wrong Command')
-#    print(argv_list)
 
 def get_prefix_list():
     prefix = ['~/.wine']
+
+    if os.path.exists(DATA_PATH):
+        pass
+    else:   #Create one
+        os.makedirs(DATA_PATH)
+        print(DATA_PATH + ' created!')
 
     print(prefix)
     return prefix
