@@ -7,6 +7,9 @@ import os
 import sys
 import shutil
 
+#Global Config
+DATA_PATH = '`/.wine_magic_prefix'
+
 def check_argv():
     """Check if the argv has only one option
     """
