@@ -135,7 +135,6 @@ def get_path_list():
 
 def delete_prefix():
     paths = get_path_list()
-
     if (len(paths) == 0):
         print('Nothing to do.')
         return
@@ -146,8 +145,19 @@ def delete_prefix():
         for path in paths:
             shutil.rmtree(path)
 
+def is_protected(prefix):
+    """prefix is a string
+    """
+    return prefix[- len(PRETECT_FLAG) : ] == PROTECT_FLAG
+
 def protect():
     global argv_list
+    paths = get_path_list()
+    if (len(paths) == 0):
+        print('Nothing to do.')
+        return
+    for path in paths:
+        shutil.move(path, path+PROTECT_FLAG)
 
 
 if __name__ == '__main__':
