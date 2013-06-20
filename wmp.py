@@ -166,6 +166,14 @@ def protect():
     for path in paths:
         shutil.move(path, path+PROTECT_FLAG)
 
+def use_protect():
+    global argv_list
+    if (argv_list[1]+PROTECT_FLAG) not in prefix_list:
+        raise ValueError("No such prefix")
+
+    argv_list[1] = argv_list[1] + PROTECT_FLAG
+    use_prefix_new()
+
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
 
@@ -187,6 +195,8 @@ if __name__ == '__main__':
         delete_prefix()
     elif '-p' in argv_list:
         protect()
+    elif '-up' in argv_list:
+        use_protect()
     else:
         print(argv_list)
         raise ValueError('Invalid Option!')
