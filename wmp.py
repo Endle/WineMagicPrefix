@@ -11,6 +11,7 @@ import shutil
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
+PROTECT_FLAG = "[[Protect]]"
 
 def check_argv():
     """Check if the argv has only one option
