@@ -6,6 +6,8 @@ A simple program to manage your wine-prefixes.
 -un : use an archieved wineprefix and overwrite currnet wineprefix(copy it here)
 -d  : delete archieved wineprefixes
 -l  : show all the wineprefixes
+-p  : protect the wineprefixes (Read Only, but you can delete it manually)
+-up : use a protected prefix(Copy it)
 
 Just have Fun!
 Welcome to my blog:     http://endle.gitcafe.com
