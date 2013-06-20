@@ -13,6 +13,12 @@ DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
 PROTECT_FLAG = "[[Protect]]"
 
+
+def is_protected(prefix):
+    """prefix is a string
+    """
+    return prefix[- len(PRETECT_FLAG) : ] == PROTECT_FLAG
+
 def check_argv():
     """Check if the argv has only one option
     """
@@ -145,11 +151,6 @@ def delete_prefix():
         for path in paths:
             shutil.rmtree(path)
 
-def is_protected(prefix):
-    """prefix is a string
-    """
-    return prefix[- len(PRETECT_FLAG) : ] == PROTECT_FLAG
-
 def protect():
     global argv_list
     paths = get_path_list()
@@ -158,7 +159,6 @@ def protect():
         return
     for path in paths:
         shutil.move(path, path+PROTECT_FLAG)
-
 
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
