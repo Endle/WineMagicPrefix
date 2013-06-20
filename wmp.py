@@ -79,7 +79,6 @@ def try_to_overwrite(path):
             print("Aborted.")
             exit()
 
-
 def backup():
     if not os.path.isdir(PREFIX_PATH):
         raise OSError('Nothing to backup!')
@@ -143,6 +142,10 @@ def delete_prefix():
         for path in paths:
             shutil.rmtree(path)
 
+def protect():
+    global argv_list
+
+
 if __name__ == '__main__':
     argv_list = sys.argv[1:]
 
@@ -162,6 +165,8 @@ if __name__ == '__main__':
         show_prefix_list()
     elif '-d' in argv_list:
         delete_prefix()
+    elif '-p' in argv_list:
+        protect()
     else:
         print(argv_list)
         raise ValueError('Invalid Option!')
