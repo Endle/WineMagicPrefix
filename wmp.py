@@ -17,7 +17,7 @@ PROTECT_FLAG = "[[Protect]]"
 def is_protected(prefix):
     """prefix is a string
     """
-    return prefix[- len(PRETECT_FLAG) : ] == PROTECT_FLAG
+    return prefix[- len(PROTECT_FLAG) : ] == PROTECT_FLAG
 
 def check_argv():
     """Check if the argv has only one option
@@ -109,6 +109,12 @@ def use_prefix():
     
     if argv_list[1] not in prefix_list:
         raise ValueError("Can't find prefix:  " + argv_list[1])
+
+    if is_protected(argv_list[1]):
+        flag = yes_or_no("Use a protected prefix")
+        if not flag:
+            print("Can't use a protected prefix. Aborted.")
+            exit()
 
     try_to_overwrite(PREFIX_PATH)
 
