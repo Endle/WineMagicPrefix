@@ -157,6 +157,9 @@ def delete_prefix():
         for path in paths:
             shutil.rmtree(path)
 
+def clean_prefix():
+    shutil.rmtree(PREFIX_PATH)
+
 def protect():
     global argv_list
     paths = get_path_list()
@@ -197,6 +200,8 @@ if __name__ == '__main__':
         protect()
     elif '-up' in argv_list:
         use_protect()
+    elif '-c' in argv_list:
+        clean_prefix()
     else:
         print(argv_list)
         raise ValueError('Invalid Option!')
