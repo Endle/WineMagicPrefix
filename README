@@ -8,6 +8,7 @@ A simple program to manage your wine-prefixes.
 -l  : show all the wineprefixes
 -p  : protect the wineprefixes (Read Only, but you can delete it manually)
 -up : use a protected prefix(Copy it)
+-c  : clean (delete ~/.wine)
 
 Just have Fun!
 Welcome to my blog:     http://endle.gitcafe.com
