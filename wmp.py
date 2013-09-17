@@ -4,9 +4,7 @@
 # terms of the Do What The Fuck You Want To Public License, Version 2,
 # as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 
-import os
-import sys
-import shutil
+import os, sys, shutil, parser
 
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
@@ -178,30 +176,31 @@ def use_protect():
     use_prefix_new()
 
 if __name__ == '__main__':
-    argv_list = sys.argv[1:]
+    pass
+    #argv_list = sys.argv[1:]
 
-    check_argv()
+    #check_argv()
 
-    prefix_list = get_prefix_list()
+    #prefix_list = get_prefix_list()
 
-    if '-b' in argv_list:
-        backup()
-    elif '-bn' in argv_list:
-        backup_new()
-    elif '-u' in argv_list:
-        use_prefix()
-    elif '-un' in argv_list:
-        use_prefix_new()
-    elif '-l' in argv_list:
-        show_prefix_list()
-    elif '-d' in argv_list:
-        delete_prefix()
-    elif '-p' in argv_list:
-        protect()
-    elif '-up' in argv_list:
-        use_protect()
-    elif '-c' in argv_list:
-        clean_prefix()
-    else:
-        print(argv_list)
-        raise ValueError('Invalid Option!')
+    #if '-b' in argv_list:
+        #backup()
+    #elif '-bn' in argv_list:
+        #backup_new()
+    #elif '-u' in argv_list:
+        #use_prefix()
+    #elif '-un' in argv_list:
+        #use_prefix_new()
+    #elif '-l' in argv_list:
+        #show_prefix_list()
+    #elif '-d' in argv_list:
+        #delete_prefix()
+    #elif '-p' in argv_list:
+        #protect()
+    #elif '-up' in argv_list:
+        #use_protect()
+    #elif '-c' in argv_list:
+        #clean_prefix()
+    #else:
+        #print(argv_list)
+        #raise ValueError('Invalid Option!')
