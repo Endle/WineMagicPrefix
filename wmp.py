@@ -4,7 +4,7 @@
 # terms of the Do What The Fuck You Want To Public License, Version 2,
 # as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
 
-import os, sys, shutil, parser
+import os, sys, shutil, argparse
 
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
@@ -176,7 +176,8 @@ def use_protect():
     use_prefix_new()
 
 if __name__ == '__main__':
-    pass
+    praser = argparse.ArgumentParser(description='Manage wine prefix in a simple way.')
+
     #argv_list = sys.argv[1:]
 
     #check_argv()
