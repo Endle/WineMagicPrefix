@@ -58,7 +58,7 @@ def get_prefix_list():
             print('Can\'t create ' + DATA_PATH)
             exit()
 
-    for x in os.listdir(DATA_PATH) : 
+    for x in os.listdir(DATA_PATH) :
         #        print( get_absolute_path(x) )
         prefix.append(x)
 
@@ -88,7 +88,7 @@ def try_to_overwrite(path):
 def backup():
     if not os.path.isdir(PREFIX_PATH):
         raise OSError('Nothing to backup!')
-    
+
     global argv_list
     dst = get_absolute_path(argv_list[1])
     try_to_overwrite(dst)
@@ -97,7 +97,7 @@ def backup():
 def backup_new():
     if not os.path.isdir(PREFIX_PATH):
         raise OSError('Nothing to backup!')
-    
+
     global argv_list
     dst = get_absolute_path(argv_list[1])
     try_to_overwrite(dst)
@@ -105,8 +105,8 @@ def backup_new():
 
 def use_prefix():
     global argv_list
-    global prefix_list 
-    
+    global prefix_list
+
     if argv_list[1] not in prefix_list:
         raise ValueError("Can't find prefix:  " + argv_list[1])
 
@@ -123,8 +123,8 @@ def use_prefix():
 
 def use_prefix_new():
     global argv_list
-    global prefix_list 
-    
+    global prefix_list
+
     if argv_list[1] not in prefix_list:
         raise ValueError("Can't find prefix:  " + argv_list[1])
 
