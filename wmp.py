@@ -183,6 +183,17 @@ if __name__ == '__main__':
     #You can only use it like '--delete prefix_a --delete prefix_b', and I don't know how to make it better
     praser.add_argument('--delete', action='append')
 
+    praser.add_argument('--backup', action='store')
+    praser.add_argument('--backup-to', action='store')
+
+    praser.add_argument('--use', action='store')
+    praser.add_argument('--use-from', action='store')
+
+    praser.add_argument('--protect', action='append')  #same problem with --delete
+
+    praser.add_argument('--clean', action='store_true')
+
+
     arg_result = vars(praser.parse_args(sys.argv[1:]))
 
     print(arg_result)
