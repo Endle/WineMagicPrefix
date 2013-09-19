@@ -176,7 +176,14 @@ def use_protect():
     use_prefix_new()
 
 if __name__ == '__main__':
-    praser = argparse.ArgumentParser(description='Manage wine prefix in a simple way.')
+    praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
+
+    praser.add_argument('--list', action='store_true')
+
+    arg_result = vars(praser.parse_args(sys.argv[1:]))
+
+    print(arg_result)
+
 
     #argv_list = sys.argv[1:]
 
