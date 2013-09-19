@@ -195,8 +195,10 @@ if __name__ == '__main__':
 
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
+    arg_set = set(key for key, val in arg_result.items() if val)
 
     print(arg_result)
+    print(arg_set)
 
 
     #argv_list = sys.argv[1:]
