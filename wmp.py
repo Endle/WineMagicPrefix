@@ -180,6 +180,9 @@ if __name__ == '__main__':
 
     praser.add_argument('--list', action='store_true')
 
+    #You can only use it like '--delete prefix_a --delete prefix_b', and I don't know how to make it better
+    praser.add_argument('--delete', action='append')
+
     arg_result = vars(praser.parse_args(sys.argv[1:]))
 
     print(arg_result)
