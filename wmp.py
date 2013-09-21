@@ -22,7 +22,9 @@ def get_absolute_path(x):
 
 def get_prefix_list():
     """Return a list, all the prefixes are included.
+       example: [(folder_name1, comment1), (folder_name2, comment2)]
     """
+    #UNCHANGED:
     prefix = []
     if os.path.isdir(PREFIX_PATH):
         prefix.append('.wine')
@@ -186,7 +188,7 @@ if __name__ == '__main__':
     print(arg_set)
 
 
-    #prefix_list = get_prefix_list()
+    prefix_list = get_prefix_list()
 
     #if '-b' in argv_list:
         #backup()
