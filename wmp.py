@@ -173,7 +173,7 @@ def use_protect():
     argv_list[1] = argv_list[1] + PROTECT_FLAG
     use_prefix_new()
 
-if __name__ == '__main__':
+def _handle_args():
     praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
 
     praser.add_argument('--list', action='store_true')
@@ -197,6 +197,10 @@ if __name__ == '__main__':
     arg_result = vars(praser.parse_args(sys.argv[1:]))
     arg_set = set(key for key, val in arg_result.items() if val)
 
+    return (arg_result, arg_set)
+
+if __name__ == '__main__':
+    arg_result, arg_set = _handle_args()
     print(arg_result)
     print(arg_set)
 
