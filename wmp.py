@@ -5,20 +5,20 @@ import os, sys, shutil, argparse
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
-PROTECT_FLAG = "[[Protect]]"
+PROTECT_FLAG = '[[Protect]]'
 COMMENT_FILE = '.comment'
 
 
 def is_protected(prefix):
-    """prefix is a string
-    """
+    '''prefix is a string
+    '''
     return prefix[- len(PROTECT_FLAG) : ] == PROTECT_FLAG
 
 def get_absolute_path(x):
-    """x is the relative path
+    '''x is the relative path
 
     Return the absolute path
-    """
+    '''
     return (DATA_PATH+'/' + x)
 
 def get_comment(path):
@@ -34,9 +34,9 @@ def get_comment(path):
     return comment
 
 def get_prefix_list():
-    """Return a list, all the prefixes are included.
+    '''Return a list, all the prefixes are included.
        example: [(folder_name1, comment1), (folder_name2, comment2)]
-    """
+    '''
     #UNCHANGED:
     prefix = []
     if os.path.isdir(PREFIX_PATH):
@@ -65,7 +65,7 @@ def show_prefix_list():
     for c in prefix_list:
         print(c)
 
-def yes_or_no(hint = ""):
+def yes_or_no(hint = ''):
     inp = input(hint + '[y/n]?')
     c = inp.strip()[0]
     return c == 'y' or c == 'Y'
@@ -122,7 +122,7 @@ def use_prefix_new():
     global prefix_list
 
     if argv_list[1] not in prefix_list:
-        raise ValueError("Can't find prefix:  " + argv_list[1])
+        raise ValueError('Can\'t find prefix:  ' + argv_list[1])
 
     try_to_overwrite(PREFIX_PATH)
 
@@ -168,7 +168,7 @@ def protect():
 def use_protect():
     global argv_list
     if (argv_list[1]+PROTECT_FLAG) not in prefix_list:
-        raise ValueError("No such prefix")
+        raise ValueError('No such prefix')
 
     argv_list[1] = argv_list[1] + PROTECT_FLAG
     use_prefix_new()
