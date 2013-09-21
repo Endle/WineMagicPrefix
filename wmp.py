@@ -6,6 +6,7 @@ import os, sys, shutil, argparse
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
 PROTECT_FLAG = "[[Protect]]"
+COMMENT_FILE = '.comment'
 
 
 def is_protected(prefix):
@@ -19,6 +20,18 @@ def get_absolute_path(x):
     Return the absolute path
     """
     return (DATA_PATH+'/' + x)
+
+def get_comment(path):
+    '''path should be an absolute path to a folder(I won't check it here)
+    return a string(should not have \n symbols
+    '''
+    file_path = path + '/' + COMMENT_FILE
+    fin = open(file_path, 'r', encoding='utf-8')
+    comment = fin.read()
+    comment = comment.strip()
+    comment.replace('\n', '  ')
+    fin.close()
+    return comment
 
 def get_prefix_list():
     """Return a list, all the prefixes are included.
