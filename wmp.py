@@ -26,20 +26,18 @@ def get_comment(path):
     return a string(should not have \n symbols
     '''
     file_path = path + '/' + COMMENT_FILE
-    fin = open(file_path, 'r', encoding='utf-8')
-    comment = fin.read()
-    comment = comment.strip()
-    comment.replace('\n', '  ')
-    fin.close()
+    with open(file_path, 'r', encoding='utf-8') as fin:
+        comment = fin.read()
+        comment = comment.strip()
+        comment.replace('\n', '  ')
     return comment
 
 def write_comment(path, comment='Untitled'):
     file_path = path + '/' + COMMENT_FILE
-    fout = open(file_path, 'w', encoding='utf-8')
-    comment = comment.strip()
-    comment.replace('\n', '  ')
-    fout.write(comment)
-    fout.close()
+    with open(file_path, 'w', encoding='utf-8'):
+        comment = comment.strip()
+        comment.replace('\n', '  ')
+        fout.write(comment)
 
 def get_prefix_list():
     '''Return a list, all the prefixes are included.
