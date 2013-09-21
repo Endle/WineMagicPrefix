@@ -13,19 +13,6 @@ def is_protected(prefix):
     """
     return prefix[- len(PROTECT_FLAG) : ] == PROTECT_FLAG
 
-def check_argv():
-    """Check if the argv has only one option
-    """
-    global argv_list
-    count = 0
-    for s in argv_list:
-        if s[0] == '-':
-            count += 1
-
-    if count != 1:
-        print (argv_list)
-        raise ValueError('Wrong Command')
-
 def get_absolute_path(x):
     """x is the relative path
 
@@ -189,6 +176,8 @@ if __name__ == '__main__':
 
     praser.add_argument('--clean', action='store_true')
 
+    praser.add_argument('--add', action='append')
+
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
     arg_set = set(key for key, val in arg_result.items() if val)
@@ -196,10 +185,6 @@ if __name__ == '__main__':
     print(arg_result)
     print(arg_set)
 
-
-    #argv_list = sys.argv[1:]
-
-    #check_argv()
 
     #prefix_list = get_prefix_list()
 
