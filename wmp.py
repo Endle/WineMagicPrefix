@@ -44,29 +44,20 @@ def get_prefix_list():
        example: [(folder_name1, comment1), (folder_name2, comment2)]
     '''
     prefix = []
-    if os.path.isdir(PREFIX_PATH):
+    if os.path.isdir(PREFIX_PATH):  #Not so pythonic,but useful
         try:
             prefix.append(('.wine', get_comment(PREFIX_PATH)))
         except IOError:
             print('Auto create a .comment file for .wine')
             write_comment(PREFIX_PATH)
 
-    #Make sure DATA_PATH is fine
-    if os.path.exists(DATA_PATH):
-        if not os.path.isdir(DATA_PATH):
-            raise OSError(DATA_PATH + ' not a folder')
-    else:   #Create one
-        try:
-            os.makedirs(DATA_PATH)
-            print(DATA_PATH + ' created!')
-        except OSError:
-            print('Can\'t create ' + DATA_PATH)
-            exit()
+    try:
+        prefix += os.listdir(DATA_PATH)
+    except FileNotFoundError:
+        print('Auto create DATA_PATH: ' + DATA_PATH)
+        os.mkdir(DATA_PATH)
 
-    for x in os.listdir(DATA_PATH) :
-        #        print( get_absolute_path(x) )
-        prefix.append(x)
-
+    print(prefix)
     return prefix
 
 def show_prefix_list():
