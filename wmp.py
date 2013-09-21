@@ -21,23 +21,30 @@ def get_absolute_path(x):
     '''
     return (DATA_PATH+'/' + x)
 
+def write_comment(path, comment='Untitled'):
+    file_path = path + '/' + COMMENT_FILE
+    with open(file_path, 'w', encoding='utf-8') as fout:
+        comment = comment.strip()
+        comment.replace('\n', '  ')
+        fout.write(comment)
+
 def get_comment(path):
     '''path should be an absolute path to a folder(I won't check it here)
     return a string(should not have \n symbols
     '''
     file_path = path + '/' + COMMENT_FILE
-    with open(file_path, 'r', encoding='utf-8') as fin:
-        comment = fin.read()
-        comment = comment.strip()
-        comment.replace('\n', '  ')
+    try:
+        with open(file_path, 'r', encoding='utf-8') as fin:
+            comment = fin.read()
+            comment = comment.strip()
+            comment.replace('\n', '  ')
+    except FileNotFoundError:
+        #with open(file_path, 'w', encoding='utf-8') as fout:
+        print('Auto create a .comment file for  ' + path)
+        write_comment(path)
+        comment = 'Untitled'
     return comment
 
-def write_comment(path, comment='Untitled'):
-    file_path = path + '/' + COMMENT_FILE
-    with open(file_path, 'w', encoding='utf-8'):
-        comment = comment.strip()
-        comment.replace('\n', '  ')
-        fout.write(comment)
 
 def get_prefix_list():
     '''Return a list, all the prefixes are included.
@@ -45,11 +52,7 @@ def get_prefix_list():
     '''
     prefix = []
     if os.path.isdir(PREFIX_PATH):  #Not so pythonic,but useful
-        try:
-            prefix.append(('.wine', get_comment(PREFIX_PATH)))
-        except IOError:
-            print('Auto create a .comment file for .wine')
-            write_comment(PREFIX_PATH)
+        prefix.append(('.wine', get_comment(PREFIX_PATH)))
 
     try:
         prefix += os.listdir(DATA_PATH)
