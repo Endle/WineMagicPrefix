@@ -37,10 +37,13 @@ def get_prefix_list():
     '''Return a list, all the prefixes are included.
        example: [(folder_name1, comment1), (folder_name2, comment2)]
     '''
-    #UNCHANGED:
     prefix = []
     if os.path.isdir(PREFIX_PATH):
-        prefix.append('.wine')
+        try:
+            prefix.append(('.wine', get_comment(PREFIX_PATH)))
+        except IOError:
+            print('Auto create a .comment file for .wine')
+            write_comment(PREFIX_PATH)
 
     #Make sure DATA_PATH is fine
     if os.path.exists(DATA_PATH):
