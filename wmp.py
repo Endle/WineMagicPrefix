@@ -33,6 +33,14 @@ def get_comment(path):
     fin.close()
     return comment
 
+def write_comment(path, comment='Untitled'):
+    file_path = path + '/' + COMMENT_FILE
+    fout = open(file_path, 'w', encoding='utf-8')
+    comment = comment.strip()
+    comment.replace('\n', '  ')
+    fout.write(comment)
+    fout.close()
+
 def get_prefix_list():
     '''Return a list, all the prefixes are included.
        example: [(folder_name1, comment1), (folder_name2, comment2)]
