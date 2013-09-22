@@ -1,13 +1,13 @@
 A simple program to manage your wine-prefixes.
 
--b  --backup=     : backup your current wineprefix(move it away)
+-b  --backup=      : backup your current wineprefix(move it away)
 -t  --backup-to=   : backup your current wineprefix(copy it)
--u  --use=        : use an archieved wineprefix and overwrite currnet wineprefix(move it here)
+-u  --use=         : use an archieved wineprefix and overwrite currnet wineprefix(move it here)
 -f  --use-from=    : use an archieved wineprefix and overwrite currnet wineprefix(copy it here)
--d  --delete=     : delete archieved wineprefixes
--l  --list        : show all the wineprefixes
--p  --protect=    : protect the wineprefixes (Read Only, but you can delete it manually)
--c  --clean       : clean (delete ~/.wine)
+-d  --delete=      : delete archieved wineprefixes
+-l  --list         : show all the wineprefixes
+-p  --protect=     : protect the wineprefixes (Read Only, but you can delete it manually)
+-c  --clean        : clean (delete ~/.wine)
 -s  --say          : say something about current wine-prefix(not handful now)
 
 Just have Fun!

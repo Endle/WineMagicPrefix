@@ -28,7 +28,7 @@ def get_absolute_path(x):
 
 def write_comment(path, comment='Untitled'):
     file_path = path + '/' + COMMENT_FILE
-#Need test, and need to be more pythonic
+    #Need test, and need to be more pythonic
     if os.path.isfile(file_path):
         flag = yes_or_no('Do you want to overwrite old comment: \n\'' + get_comment(path) + '\' ')
     else:
