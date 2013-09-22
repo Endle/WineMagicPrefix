@@ -9,6 +9,11 @@ PROTECT_FLAG = '[[Protect]]'
 COMMENT_FILE = '.comment'
 
 
+def yes_or_no(hint = ''):
+    inp = input(hint + '[y/n]?')
+    c = inp.strip()[0]
+    return c == 'y' or c == 'Y'
+
 def is_protected(prefix):
     '''prefix is a string
     '''
@@ -23,6 +28,14 @@ def get_absolute_path(x):
 
 def write_comment(path, comment='Untitled'):
     file_path = path + '/' + COMMENT_FILE
+#Need test, and need to be more pythonic
+    if os.path.isfile(file_path):
+        flag = yes_or_no('Do you want to overwrite old comment: \n\'' + get_comment(path) + '\' ')
+    else:
+        flag = True
+
+    if not flag:
+        return
     with open(file_path, 'w', encoding='utf-8') as fout:
         comment = comment.strip()
         comment.replace('\n', '  ')
@@ -67,11 +80,6 @@ def show_prefix_list():
     global prefix_list
     for c in prefix_list:
         print(c)
-
-def yes_or_no(hint = ''):
-    inp = input(hint + '[y/n]?')
-    c = inp.strip()[0]
-    return c == 'y' or c == 'Y'
 
 def try_to_overwrite(path):
     """Over-write path if the user confirms that
