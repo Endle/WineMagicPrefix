@@ -116,16 +116,16 @@ def use_prefix(src):
     #Should be handled in a better way
     shutil.move(src, PREFIX_PATH)
 
-def use_prefix_new():
-    global argv_list
+def use_from(src):
     global prefix_list
+    assert src in prefix_list
 
-    if argv_list[1] not in prefix_list:
-        raise ValueError('Can\'t find prefix:  ' + argv_list[1])
+    print('protect function is a stub')
 
-    try_to_overwrite(PREFIX_PATH)
-
-    src = get_absolute_path(argv_list[1])
+    src = get_absolute_path(src)
+    if os.path.isdir(PREFIX_PATH):
+        raise FileExistsError
+    #Should be handled in a better way
     shutil.copytree(src, PREFIX_PATH, True)
 
 def get_path_list():
@@ -214,6 +214,8 @@ if __name__ == '__main__':
 
     if 'use' in arg_set:
         use_prefix(arg_result['use'])
+    if 'use_from' in arg_set:
+        use_from(arg_result['use_from'])
     #elif '-u' in argv_list:
         #use_prefix()
     #elif '-un' in argv_list:
