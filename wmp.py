@@ -97,13 +97,10 @@ def backup(dst):
     dst = get_absolute_path(dst)
     shutil.move(PREFIX_PATH, dst)
 
-def backup_new():
-    if not os.path.isdir(PREFIX_PATH):
-        raise OSError('Nothing to backup!')
-
-    global argv_list
-    dst = get_absolute_path(argv_list[1])
-    try_to_overwrite(dst)
+def copyto(dst):
+    assert os.path.isdir(PREFIX_PATH)
+    dst = get_absolute_path(dst)
+    print(dst)
     shutil.copytree(PREFIX_PATH, dst, True)
 
 def use_prefix():
@@ -189,7 +186,7 @@ def _handle_args():
     praser.add_argument('--delete', action='append')
 
     praser.add_argument('--backup', action='store')
-    praser.add_argument('--backup-to', action='store')
+    praser.add_argument('--copy-to', action='store')
 
     praser.add_argument('--use', action='store')
     praser.add_argument('--use-from', action='store')
@@ -217,6 +214,8 @@ if __name__ == '__main__':
     if 'backup' in arg_set:
         backup(arg_result['backup'])
 
+    if 'copy_to' in arg_set:
+        copyto(arg_result['copy_to'])
     #if '-b' in argv_list:
         #backup()
     #elif '-bn' in argv_list:
