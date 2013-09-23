@@ -92,13 +92,9 @@ def try_to_overwrite(path):
             print("Aborted.")
             exit()
 
-def backup():
-    if not os.path.isdir(PREFIX_PATH):
-        raise OSError('Nothing to backup!')
-
-    global argv_list
-    dst = get_absolute_path(argv_list[1])
-    try_to_overwrite(dst)
+def backup(dst):
+    assert os.path.isdir(PREFIX_PATH)
+    dst = get_absolute_path(dst)
     shutil.move(PREFIX_PATH, dst)
 
 def backup_new():
@@ -217,6 +213,9 @@ if __name__ == '__main__':
 
 
     prefix_list = get_prefix_list()
+
+    if 'backup' in arg_set:
+        backup(arg_result['backup'])
 
     #if '-b' in argv_list:
         #backup()
