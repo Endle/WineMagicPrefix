@@ -103,22 +103,17 @@ def copyto(dst):
     print(dst)
     shutil.copytree(PREFIX_PATH, dst, True)
 
-def use_prefix():
-    global argv_list
+def use_prefix(src):
+    #Next feature: auto-load some commands from shell
     global prefix_list
+    assert src in prefix_list
 
-    if argv_list[1] not in prefix_list:
-        raise ValueError("Can't find prefix:  " + argv_list[1])
+    print('protect function is a stub')
 
-    if is_protected(argv_list[1]):
-        flag = yes_or_no("Use a protected prefix")
-        if not flag:
-            print("Can't use a protected prefix. Aborted.")
-            exit()
-
-    try_to_overwrite(PREFIX_PATH)
-
-    src = get_absolute_path(argv_list[1])
+    src = get_absolute_path(src)
+    if os.path.isdir(PREFIX_PATH):
+        raise FileExistsError
+    #Should be handled in a better way
     shutil.move(src, PREFIX_PATH)
 
 def use_prefix_new():
@@ -216,6 +211,9 @@ if __name__ == '__main__':
 
     if 'copy_to' in arg_set:
         copyto(arg_result['copy_to'])
+
+    if 'use' in arg_set:
+        use_prefix(arg_result['use'])
     #elif '-u' in argv_list:
         #use_prefix()
     #elif '-un' in argv_list:
