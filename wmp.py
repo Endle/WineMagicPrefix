@@ -216,10 +216,6 @@ if __name__ == '__main__':
 
     if 'copy_to' in arg_set:
         copyto(arg_result['copy_to'])
-    #if '-b' in argv_list:
-        #backup()
-    #elif '-bn' in argv_list:
-        #backup_new()
     #elif '-u' in argv_list:
         #use_prefix()
     #elif '-un' in argv_list:
