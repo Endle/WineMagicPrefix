@@ -212,6 +212,8 @@ if __name__ == '__main__':
     if 'delete' in arg_set:
         for prefix in arg_result['delete']:
             delete_prefix(prefix)
+    if 'clean' in arg_set:
+        clean_prefix()
     #elif '-u' in argv_list:
         #use_prefix()
     #elif '-un' in argv_list:
