@@ -140,17 +140,9 @@ def get_path_list():
             argv_list.remove(prfx)
     return paths
 
-def delete_prefix():
-    paths = get_path_list()
-    if (len(paths) == 0):
-        print('Nothing to do.')
-        return
-
-    hint = 'Are you going to delete: ' + str(argv_list[1:])
-    flag = yes_or_no(hint)
-    if flag:
-        for path in paths:
-            shutil.rmtree(path)
+def delete_prefix(obj):
+    path = get_absolute_path(obj)
+    shutil.rmtree(path)
 
 def clean_prefix():
     shutil.rmtree(PREFIX_PATH)
@@ -216,6 +208,10 @@ if __name__ == '__main__':
         use_prefix(arg_result['use'])
     if 'use_from' in arg_set:
         use_from(arg_result['use_from'])
+
+    if 'delete' in arg_set:
+        for prefix in arg_result['delete']:
+            delete_prefix(prefix)
     #elif '-u' in argv_list:
         #use_prefix()
     #elif '-un' in argv_list:
