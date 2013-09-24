@@ -66,7 +66,6 @@ def get_prefix_list():
         print('Auto create DATA_PATH: ' + DATA_PATH)
         os.mkdir(DATA_PATH)
 
-    print(prefix)
     return prefix
 
 def show_prefix_list():
@@ -145,8 +144,6 @@ def _handle_args():
 
 if __name__ == '__main__':
     arg_result, arg_set = _handle_args()
-    print(arg_result)
-    print(arg_set)
 
     if 'say' in arg_set:
         write_comment(PREFIX_PATH, arg_result['say'])
