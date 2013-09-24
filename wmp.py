@@ -68,7 +68,7 @@ def get_prefix_list():
         prefix.append(('.wine', get_comment(PREFIX_PATH)))
 
     try:
-        prefix += os.listdir(DATA_PATH)
+        prefix += [ (path,get_comment(get_absolute_path(path)) ) for path in os.listdir(DATA_PATH)]
     except FileNotFoundError:
         print('Auto create DATA_PATH: ' + DATA_PATH)
         os.mkdir(DATA_PATH)
