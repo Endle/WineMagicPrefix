@@ -182,7 +182,7 @@ def _handle_args():
 
     praser.add_argument('--clean', action='store_true')
 
-    praser.add_argument('--add', action='append')
+    praser.add_argument('--say', action='store')
 
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
@@ -194,6 +194,9 @@ if __name__ == '__main__':
     arg_result, arg_set = _handle_args()
     print(arg_result)
     print(arg_set)
+
+    if 'say' in arg_set:
+        write_comment(PREFIX_PATH, arg_result['say'])
 
 
     prefix_list = get_prefix_list()
