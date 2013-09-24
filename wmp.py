@@ -5,7 +5,6 @@ import os, sys, shutil, argparse
 #Global Config
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
-PROTECT_FLAG = '[[Protect]]'
 COMMENT_FILE = '.comment'
 
 
@@ -13,11 +12,6 @@ def yes_or_no(hint = ''):
     inp = input(hint + '[y/n]?')
     c = inp.strip()[0]
     return c == 'y' or c == 'Y'
-
-def is_protected(prefix):
-    '''prefix is a string
-    '''
-    return prefix[- len(PROTECT_FLAG) : ] == PROTECT_FLAG
 
 def get_absolute_path(x):
     '''x is the relative path
@@ -58,7 +52,6 @@ def get_comment(path):
         comment = 'Untitled'
     return comment
 
-
 def get_prefix_list():
     '''Return a list, all the prefixes are included.
        example: [(folder_name1, comment1), (folder_name2, comment2)]
@@ -80,17 +73,6 @@ def show_prefix_list():
     global prefix_list
     for c in prefix_list:
         print(c)
-
-def try_to_overwrite(path):
-    """Over-write path if the user confirms that
-    """
-    if os.path.exists(path):
-        flag = yes_or_no("Over-write " + path)
-        if flag:
-            shutil.rmtree(PREFIX_PATH)
-        else:
-            print("Aborted.")
-            exit()
 
 def backup(dst):
     assert os.path.isdir(PREFIX_PATH)
@@ -128,41 +110,12 @@ def use_from(src):
     #Should be handled in a better way
     shutil.copytree(src, PREFIX_PATH, True)
 
-def get_path_list():
-    global argv_list
-    paths = []
-    for prfx in argv_list[1:]:
-        path = get_absolute_path(prfx)
-        if os.path.exists(path):
-            paths.append(path)
-        else:
-            print(prfx + ' not exists. Ignore it')
-            argv_list.remove(prfx)
-    return paths
-
 def delete_prefix(obj):
     path = get_absolute_path(obj)
     shutil.rmtree(path)
 
 def clean_prefix():
     shutil.rmtree(PREFIX_PATH)
-
-def protect():
-    global argv_list
-    paths = get_path_list()
-    if (len(paths) == 0):
-        print('Nothing to do.')
-        return
-    for path in paths:
-        shutil.move(path, path+PROTECT_FLAG)
-
-def use_protect():
-    global argv_list
-    if (argv_list[1]+PROTECT_FLAG) not in prefix_list:
-        raise ValueError('No such prefix')
-
-    argv_list[1] = argv_list[1] + PROTECT_FLAG
-    use_prefix_new()
 
 def _handle_args():
     praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
@@ -217,20 +170,4 @@ if __name__ == '__main__':
             delete_prefix(prefix)
     if 'clean' in arg_set:
         clean_prefix()
-    #elif '-u' in argv_list:
-        #use_prefix()
-    #elif '-un' in argv_list:
-        #use_prefix_new()
-    #elif '-l' in argv_list:
-        #show_prefix_list()
-    #elif '-d' in argv_list:
-        #delete_prefix()
-    #elif '-p' in argv_list:
-        #protect()
-    #elif '-up' in argv_list:
-        #use_protect()
-    #elif '-c' in argv_list:
-        #clean_prefix()
-    #else:
-        #print(argv_list)
-        #raise ValueError('Invalid Option!')
+
