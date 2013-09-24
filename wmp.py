@@ -151,6 +151,8 @@ if __name__ == '__main__':
 
     prefix_list = get_prefix_list()
 
+    if 'list' in arg_set:
+        show_prefix_list()
     if 'backup' in arg_set:
         backup(arg_result['backup'])
 
