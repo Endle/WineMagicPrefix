@@ -170,3 +170,6 @@ if __name__ == '__main__':
     if 'clean' in arg_set:
         clean_prefix()
 
+    if 'protect' in arg_set:
+        print ('STUB now')
+
