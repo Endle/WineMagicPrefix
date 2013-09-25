@@ -87,7 +87,6 @@ def copyto(dst):
 def use_prefix(src):
     #Next feature: auto-load some commands from shell
     global prefix_list
-    assert src in prefix_list
 
     print('protect function is a stub')
 
@@ -99,7 +98,6 @@ def use_prefix(src):
 
 def use_from(src):
     global prefix_list
-    assert src in prefix_list
 
     print('protect function is a stub')
 
