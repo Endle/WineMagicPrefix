@@ -117,22 +117,22 @@ def clean_prefix():
 def _handle_args():
     praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
 
-    praser.add_argument('--list', action='store_true')
+    praser.add_argument('-l', '--list', action='store_true')
 
     #You can only use it like '--delete prefix_a --delete prefix_b', and I don't know how to make it better
-    praser.add_argument('--delete', action='append')
+    praser.add_argument('-d', '--delete', action='append')
 
-    praser.add_argument('--backup', action='store')
-    praser.add_argument('--copy-to', action='store')
+    praser.add_argument('-b','--backup', action='store')
+    praser.add_argument('-t','--copy-to', action='store')
 
-    praser.add_argument('--use', action='store')
-    praser.add_argument('--use-from', action='store')
+    praser.add_argument('-u', '--use', action='store')
+    praser.add_argument('-f', '--use-from', action='store')
 
-    praser.add_argument('--protect', action='append')  #same problem with --delete
+    praser.add_argument('-p', '--protect', action='append')  #same problem with --delete
 
-    praser.add_argument('--clean', action='store_true')
+    praser.add_argument('-c', '--clean', action='store_true')
 
-    praser.add_argument('--say', action='store')
+    praser.add_argument('-s', '--say', action='store')
 
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
