@@ -81,7 +81,6 @@ def backup(dst):
 def copyto(dst):
     assert os.path.isdir(PREFIX_PATH)
     dst = get_absolute_path(dst)
-    print(dst)
     shutil.copytree(PREFIX_PATH, dst, True)
 
 def use_prefix(src):
