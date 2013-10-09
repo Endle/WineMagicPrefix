@@ -111,7 +111,10 @@ def delete_prefix(obj):
     shutil.rmtree(path)
 
 def clean_prefix():
-    shutil.rmtree(PREFIX_PATH)
+    try:
+        shutil.rmtree(PREFIX_PATH)
+    except FileNotFoundError:
+        print('FileNotFound, Skip')
 
 def _handle_args():
     praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
