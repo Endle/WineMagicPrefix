@@ -147,7 +147,8 @@ if __name__ == '__main__':
 
     if 'say' in arg_set:
         write_comment(PREFIX_PATH, arg_result['say'])
-
+    if 'clean' in arg_set:
+        clean_prefix()
 
     prefix_list = get_prefix_list()
 
@@ -167,8 +168,6 @@ if __name__ == '__main__':
     if 'delete' in arg_set:
         for prefix in arg_result['delete']:
             delete_prefix(prefix)
-    if 'clean' in arg_set:
-        clean_prefix()
 
     if 'protect' in arg_set:
         print ('STUB now')
