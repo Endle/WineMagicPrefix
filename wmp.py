@@ -89,22 +89,34 @@ def use_prefix(src):
 
     print('protect function is a stub')
 
+    src0 = src
     src = get_absolute_path(src)
-    if os.path.isdir(PREFIX_PATH):
-        raise FileExistsError
-    #Should be handled in a better way
-    shutil.move(src, PREFIX_PATH)
+    try:
+        shutil.move(src, PREFIX_PATH)
+    except FileExistsError:
+        #Assume that prefix_list[0] means .wine
+        if yes_or_no('trying to overwrite ' +  str(prefix_list[0])):
+            clean_prefix()
+            use_from(src0)
+        else:
+            print('Don\'t overwrite, aborting')
 
 def use_from(src):
     global prefix_list
 
     print('protect function is a stub')
 
+    src0 = src
     src = get_absolute_path(src)
-    if os.path.isdir(PREFIX_PATH):
-        raise FileExistsError
-    #Should be handled in a better way
-    shutil.copytree(src, PREFIX_PATH, True)
+    try:
+        shutil.copytree(src, PREFIX_PATH, True)
+    except FileExistsError:
+        #Assume that prefix_list[0] means .wine
+        if yes_or_no('trying to overwrite ' +  str(prefix_list[0])):
+            clean_prefix()
+            use_from(src0)
+        else:
+            print('Don\'t overwrite, aborting')
 
 def delete_prefix(obj):
     path = get_absolute_path(obj)
