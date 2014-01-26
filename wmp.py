@@ -6,6 +6,7 @@ import os, sys, shutil, argparse
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
 COMMENT_FILE = '.comment'
+DEFAULT_COMMENT = 'Untitled'
 
 
 def yes_or_no(hint = ''):
@@ -20,10 +21,11 @@ def get_absolute_path(x):
     '''
     return (DATA_PATH+'/' + x)
 
-def write_comment(path, comment='Untitled'):
+def write_comment(path, comment=DEFAULT_COMMENT):
     file_path = path + '/' + COMMENT_FILE
     #Need test, and need to be more pythonic
-    if os.path.isfile(file_path):
+    if os.path.isfile(file_path) \
+        and get_comment(path) != DEFAULT_COMMENT:
         flag = yes_or_no('Do you want to overwrite old comment: \n\'' + get_comment(path) + '\' ')
     else:
         flag = True
