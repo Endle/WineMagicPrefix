@@ -54,6 +54,11 @@ def get_comment(path):
         comment = 'Untitled'
     return comment
 
+def append_comment(path, comment):
+    write_comment(path, \
+                get_comment(path) + ' ' + comment)
+    return
+
 def get_prefix_list():
     '''Return a list, all the prefixes are included.
        example: [(folder_name1, comment1), (folder_name2, comment2)]
@@ -137,6 +142,7 @@ def _handle_args():
     praser.add_argument('-c', '--clean', action='store_true')
 
     praser.add_argument('-s', '--say', action='store')
+    praser.add_argument('-a', '--append', action='store')
 
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
@@ -149,6 +155,8 @@ if __name__ == '__main__':
 
     if 'say' in arg_set:
         write_comment(PREFIX_PATH, arg_result['say'])
+    if 'append' in arg_set:
+        append_comment(PREFIX_PATH, arg_result['append'])
     if 'clean' in arg_set:
         clean_prefix()
 
