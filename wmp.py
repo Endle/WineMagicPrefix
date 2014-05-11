@@ -136,6 +136,7 @@ def _handle_args():
     praser.add_argument('-d', '--delete', action='append')
 
     praser.add_argument('-b','--backup', action='store')
+    praser.add_argument('-bs', '--backup_as_say', action='store_true')
     praser.add_argument('-t','--copy-to', action='store')
 
     praser.add_argument('-u', '--use', action='store')
@@ -182,6 +183,11 @@ if __name__ == '__main__':
     if 'delete' in arg_set:
         for prefix in arg_result['delete']:
             delete_prefix(prefix)
+
+    if 'backup_as_say' in arg_set:
+        assert('backup' not in arg_set)
+        backup(prefix_list['.wine'])
+
 
     if 'protect' in arg_set:
         print ('STUB now')
