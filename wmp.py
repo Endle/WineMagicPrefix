@@ -60,25 +60,29 @@ def append_comment(path, comment):
     return
 
 def get_prefix_list():
-    '''Return a list, all the prefixes are included.
-       example: [(folder_name1, comment1), (folder_name2, comment2)]
+    '''Return a dict, all the prefixes are included.
+       example: {folder_name_i: comment_i}
     '''
-    prefix = []
+    prefix = {}
     if os.path.isdir(PREFIX_PATH):  #Not so pythonic,but useful
-        prefix.append(('.wine', get_comment(PREFIX_PATH)))
+        prefix['.wine'] = get_comment(PREFIX_PATH)
 
     try:
-        prefix += [ (path,get_comment(get_absolute_path(path)) ) for path in os.listdir(DATA_PATH)]
-    except FileNotFoundError:
+        paths = os.listdir(DATA_PATH)
+    except:
         print('Auto create DATA_PATH: ' + DATA_PATH)
         os.mkdir(DATA_PATH)
+        paths = os.listdir(DATA_PATH)
+
+    for path in paths:
+        prefix[path] = get_comment(get_absolute_path(path))
 
     return prefix
 
 def show_prefix_list():
     global prefix_list
     for c in prefix_list:
-        print(c)
+        print(c, "  :   ", prefix_list[c])
 
 def backup(dst):
     assert os.path.isdir(PREFIX_PATH)
