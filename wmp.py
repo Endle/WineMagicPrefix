@@ -81,8 +81,12 @@ def get_prefix_list():
 
 def show_prefix_list():
     global prefix_list
-    for c in prefix_list:
-        print(c, "  :   ", prefix_list[c])
+    width = max([len(c) for c in prefix_list.keys()])
+    output = ["{0:{2}} :  {1}".format(c, prefix_list[c], width)
+                for c in prefix_list.keys()]
+    output.sort()
+    for s in output:
+        print(s)
 
 def backup(dst):
     assert os.path.isdir(PREFIX_PATH)
