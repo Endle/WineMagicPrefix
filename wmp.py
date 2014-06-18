@@ -136,8 +136,7 @@ def _handle_args():
 
     praser.add_argument('-l', '--list', action='store_true')
 
-    #You can only use it like '--delete prefix_a --delete prefix_b', and I don't know how to make it better
-    praser.add_argument('-d', '--delete', action='append')
+    praser.add_argument('-d', '--delete', nargs='+')
 
     praser.add_argument('-b','--backup', action='store')
     praser.add_argument('-bs', '--backup_as_say', action='store_true')
