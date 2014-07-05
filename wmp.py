@@ -9,7 +9,7 @@ COMMENT_FILE = '.comment'
 DEFAULT_COMMENT = 'Untitled'
 
 
-def yes_or_no(hint = ''):
+def yes_or_no(hint=''):
     inp = input(hint + '[y/n]?')
     c = inp.strip()[0]
     return c == 'y' or c == 'Y'
@@ -19,14 +19,15 @@ def get_absolute_path(x):
 
     Return the absolute path
     '''
-    return (DATA_PATH+'/' + x)
+    return DATA_PATH + '/' + x
 
 def write_comment(path, comment=DEFAULT_COMMENT):
     file_path = path + '/' + COMMENT_FILE
     #Need test, and need to be more pythonic
     if os.path.isfile(file_path) \
         and get_comment(path) != DEFAULT_COMMENT:
-        flag = yes_or_no('Do you want to overwrite old comment: \n\'' + get_comment(path) + '\' ')
+        flag = yes_or_no('Do you want to overwrite old comment: \n\''
+                         + get_comment(path) + '\' ')
     else:
         flag = True
 
@@ -132,20 +133,21 @@ def clean_prefix():
         print('FileNotFound, Skip')
 
 def _handle_args():
-    praser = argparse.ArgumentParser(prog='WineMagicPrefix', description='Manage wine prefix in a simple way.')
+    praser = argparse.ArgumentParser(prog='WineMagicPrefix',
+                    description='Manage wine prefix in a simple way.')
 
     praser.add_argument('-l', '--list', action='store_true')
 
     praser.add_argument('-d', '--delete', nargs='+')
 
-    praser.add_argument('-b','--backup', action='store')
+    praser.add_argument('-b', '--backup', action='store')
     praser.add_argument('-bs', '--backup_as_say', action='store_true')
-    praser.add_argument('-t','--copy-to', action='store')
+    praser.add_argument('-t', '--copy-to', action='store')
 
     praser.add_argument('-u', '--use', action='store')
     praser.add_argument('-f', '--use-from', action='store')
 
-    praser.add_argument('-p', '--protect', action='append')  #same problem with --delete
+    praser.add_argument('-p', '--protect', nargs='+')
 
     praser.add_argument('-c', '--clean', action='store_true')
 
