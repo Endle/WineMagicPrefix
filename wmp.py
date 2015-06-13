@@ -149,6 +149,14 @@ def delete_prefix(obj):
     shutil.rmtree(path)
 
 def clean_prefix():
+    current = get_comment(PREFIX_PATH)
+    if current != DEFAULT_COMMENT:
+        flag = yes_or_no("Do you want to delete " + current)
+    else:
+        flag = True
+    if not flag:
+        print("clean_prefix refused.")
+        return
     try:
         shutil.rmtree(PREFIX_PATH)
     except FileNotFoundError:
