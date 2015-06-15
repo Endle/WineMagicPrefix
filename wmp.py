@@ -60,7 +60,7 @@ def write_comment(path, comment=DEFAULT_COMMENT):
         comment.replace('\n', '  ')
         fout.write(comment)
 
-def get_comment(path):
+def get_comment(path, quietCreate=False):
     '''path should be an absolute path to a folder(I won't check it here)
     return a string(should not have \n symbols
     '''
@@ -72,7 +72,7 @@ def get_comment(path):
             comment.replace('\n', '  ')
     except FileNotFoundError:
         #with open(file_path, 'w', encoding='utf-8') as fout:
-        print('Auto create a .comment file for  ' + path)
+        if not quietCreate: print('Auto create a .comment file for  ' + path)
         write_comment(path)
         comment = 'Untitled'
     return comment
@@ -149,7 +149,7 @@ def delete_prefix(obj):
     shutil.rmtree(path)
 
 def clean_prefix():
-    current = get_comment(PREFIX_PATH)
+    current = get_comment(PREFIX_PATH, True)
     if current != DEFAULT_COMMENT:
         flag = yes_or_no("Do you want to delete " + current)
     else:
