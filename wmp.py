@@ -104,7 +104,10 @@ def get_prefix_list():
 
 def show_prefix_list():
     global prefix_list
-    width = max([len(c) for c in prefix_list.keys()])
+    try:
+        width = max([len(c) for c in prefix_list.keys()])
+    except ValueError:
+        width = 0
     output = ["{0:{2}} :  {1}".format(c, prefix_list[c], width)
                 for c in prefix_list.keys()]
     output.sort()
