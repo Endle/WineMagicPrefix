@@ -43,39 +43,44 @@ def get_absolute_path(x):
     '''
     return DATA_PATH + '/' + x
 
-def write_comment(path, comment=DEFAULT_COMMENT):
-    file_path = path + '/' + COMMENT_FILE
+def strip_str(s):
+    s = s.strip()
+    s.replace('\n', ' ')
+    return s
+
+def write_to_file(path, file_name, str_to_write,
+        default_str="", get_old_text=lambda x,y:""):
+    file_path = path + '/' + file_name
     #Need test, and need to be more pythonic
     if os.path.isfile(file_path) \
-        and get_comment(path) != DEFAULT_COMMENT:
-        flag = yes_or_no('Do you want to overwrite old comment: \n\''
-                         + get_comment(path) + '\' ')
+        and get_old_text(path, file_name) != default_str:
+        flag = yes_or_no('Do you want to overwrite old content: \n\''
+                         + get_old_text(path, file_name) + '\' ')
     else:
         flag = True
 
-    if not flag:
-        return
-    with open(file_path, 'w', encoding='utf-8') as fout:
-        comment = comment.strip()
-        comment.replace('\n', '  ')
-        fout.write(comment)
+    if flag:
+        with open(file_path, 'w', encoding='utf-8') as fout:
+            str_to_write = strip_str(str_to_write)
+            fout.write(str_to_write)
 
-def get_comment(path, quietCreate=False):
-    '''path should be an absolute path to a folder(I won't check it here)
-    return a string(should not have \n symbols
-    '''
-    file_path = path + '/' + COMMENT_FILE
+def read_from_file(path, file_name, quietCreate=False, default_str=""):
+    file_path = path + '/' + file_name
     try:
         with open(file_path, 'r', encoding='utf-8') as fin:
-            comment = fin.read()
-            comment = comment.strip()
-            comment.replace('\n', '  ')
+            input_str = strip_str(fin.read())
     except FileNotFoundError:
-        #with open(file_path, 'w', encoding='utf-8') as fout:
-        if not quietCreate: print('Auto create a .comment file for  ' + path)
-        write_comment(path)
-        comment = 'Untitled'
-    return comment
+        if not quietCreate: print("Auto create " + file_name + "file for "+ path)
+        write_to_file(path, file_name, default_str)
+        input_str = default_str
+    return input_str
+
+def write_comment(path, comment=DEFAULT_COMMENT):
+    write_to_file(path, COMMENT_FILE, comment,
+        default_str = DEFAULT_COMMENT, get_old_text=read_from_file)
+
+def get_comment(path, quietCreate=False):
+    return read_from_file(path, COMMENT_FILE, quietCreate, default_str=DEFAULT_COMMENT)
 
 def get_prefix_list():
     '''Return a dict, all the prefixes are included.
