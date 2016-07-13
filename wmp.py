@@ -28,6 +28,7 @@ import os, sys, shutil, argparse
 DATA_PATH = os.path.expanduser('~/.wine_magic_prefix')
 PREFIX_PATH = os.path.expanduser('~/.wine')
 COMMENT_FILE = '.comment'
+CLIPBOARD_FILE = ".clipboard"
 DEFAULT_COMMENT = 'Untitled'
 
 
@@ -70,7 +71,10 @@ def read_from_file(path, file_name, quietCreate=False, default_str=""):
         with open(file_path, 'r', encoding='utf-8') as fin:
             input_str = strip_str(fin.read())
     except FileNotFoundError:
-        if not quietCreate: print("Auto create " + file_name + "file for "+ path)
+        if not quietCreate:
+            print(file_name + "File Not Found")
+            return default_str
+        print("Auto create " + file_name + "file for "+ path)
         write_to_file(path, file_name, default_str)
         input_str = default_str
     return input_str
@@ -81,6 +85,15 @@ def write_comment(path, comment=DEFAULT_COMMENT):
 
 def get_comment(path, quietCreate=False):
     return read_from_file(path, COMMENT_FILE, quietCreate, default_str=DEFAULT_COMMENT)
+
+def load_clipboard(path=PREFIX_PATH):
+    clip = read_from_file(path, CLIPBOARD_FILE, False)
+    if clip:
+        import pyperclip
+        pyperclip.copy(clip)
+
+def save_clipboard(path, clip):
+    write_to_file(path, CLIPBOARD_FILE, clip, get_old_text=read_from_file)
 
 def get_prefix_list():
     '''Return a dict, all the prefixes are included.
@@ -125,7 +138,6 @@ def copyto(dst):
     shutil.copytree(PREFIX_PATH, dst, True)
 
 def use_prefix(src):
-    #Next feature: auto-load some commands from shell
     global prefix_list
 
     src = get_absolute_path(src)
@@ -133,6 +145,7 @@ def use_prefix(src):
         raise FileExistsError
     #Should be handled in a better way
     shutil.move(src, PREFIX_PATH)
+    load_clipboard()
 
 def use_from(src):
     global prefix_list
@@ -176,7 +189,7 @@ def _handle_args():
     praser.add_argument('-c', '--clean', action='store_true')
 
     praser.add_argument('-s', '--say', action='store')
-
+    praser.add_argument('-x', '--set_clip', action='store')
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
     arg_set = set(key for key, val in arg_result.items() if val)
@@ -188,6 +201,8 @@ if __name__ == '__main__':
 
     if 'say' in arg_set:
         write_comment(PREFIX_PATH, arg_result['say'])
+    if 'set_clip' in arg_set:
+        save_clipboard(PREFIX_PATH, arg_result['set_clip'])
     if 'clean' in arg_set:
         clean_prefix()
 
