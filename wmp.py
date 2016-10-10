@@ -213,6 +213,9 @@ if __name__ == '__main__':
     if 'backup' in arg_set:
         backup(arg_result['backup'])
 
+    if 'copy_to' in arg_set or 'use_from' in arg_set:
+        import pyfastcopy
+
     if 'copy_to' in arg_set:
         copyto(arg_result['copy_to'])
 
