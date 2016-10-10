@@ -190,6 +190,7 @@ def _handle_args():
 
     praser.add_argument('-s', '--say', action='store')
     praser.add_argument('-x', '--set_clip', action='store')
+    praser.add_argument('-lx', '--load_clip', action='store_true')
 
     arg_result = vars(praser.parse_args(sys.argv[1:]))
     arg_set = set(key for key, val in arg_result.items() if val)
@@ -203,6 +204,8 @@ if __name__ == '__main__':
         write_comment(PREFIX_PATH, arg_result['say'])
     if 'set_clip' in arg_set:
         save_clipboard(PREFIX_PATH, arg_result['set_clip'])
+    if 'load_clip' in arg_set:
+        load_clipboard()
     if 'clean' in arg_set:
         clean_prefix()
 
